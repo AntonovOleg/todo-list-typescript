@@ -1,8 +1,9 @@
 import "../styles/Filters.css";
+import { filters } from "./Main";
 
 interface IProps {
-  filter: string;
-  setFilter: (filter: string) => void;
+  filter: number;
+  setFilter: (filter: number) => void;
 }
 
 const Filters = (props: IProps) => {
@@ -11,20 +12,20 @@ const Filters = (props: IProps) => {
   return (
     <div>
       <div
-        className={filter === "All" ? "filter filtered" : "filter"}
-        onClick={() => setFilter("All")}
+        className={filter === filters.All ? "filter filtered" : "filter"}
+        onClick={() => setFilter(filters.All)}
       >
         All
       </div>
       <div
-        className={filter === "Active" ? "filter filtered" : "filter"}
-        onClick={() => setFilter("Active")}
+        className={filter === filters.Active ? "filter filtered" : "filter"}
+        onClick={() => setFilter(filters.Active)}
       >
         Active
       </div>
       <div
-        className={filter === "Completed" ? "filter filtered" : "filter"}
-        onClick={() => setFilter("Completed")}
+        className={filter === filters.Completed ? "filter filtered" : "filter"}
+        onClick={() => setFilter(filters.Completed)}
       >
         Completed
       </div>
