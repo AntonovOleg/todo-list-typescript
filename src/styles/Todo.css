@@ -1,0 +1,21 @@
+.todo-wrapper {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin: auto;
+  color: black;
+  transition: 1s;
+  text-decoration: none;
+}
+.btn-del {
+  display: inline-block;
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 0 5px;
+}
+.strike {
+  text-decoration: line-through;
+  color: gray;
+  transition: 1s;
+}
