@@ -2,7 +2,6 @@ import { Badge, Box, Button } from "@mui/material";
 import { FC } from "react";
 import "../styles/Filters.css";
 import { filters, ITodo } from "./Main";
-import Todos from "./Todos";
 
 interface IProps {
   filter: number;
@@ -19,11 +18,12 @@ const Filters: FC<IProps> = ({
   activeTodos,
   completedTodos,
 }) => {
-  
+
   return (
     <Box
       sx={{
         mt: "20px",
+        pb: '20px'
       }}
     >
       <Badge badgeContent={todos.length} color="primary">
