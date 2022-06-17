@@ -6,14 +6,15 @@ interface IProps {
   todo: string;
   isDone: boolean;
   todos: ITodo[];
+  origTodos: ITodo[];
   setTodos: (todos: ITodo[]) => void;
 }
 
 const Todo = (props: IProps) => {
-  const { id, todo, isDone, todos, setTodos } = props;
+  const { id, todo, isDone, todos, origTodos, setTodos } = props;
 
   const modify = (id: number, todo: string, isDone: boolean) => {
-    let tmpTodos: ITodo[] = [...todos];
+    let tmpTodos: ITodo[] = [...origTodos];
     tmpTodos.map((task) => {
       if (task.id === id) {
         task.todo = todo;
@@ -25,7 +26,7 @@ const Todo = (props: IProps) => {
   };
 
   const deleteItem = (id: number) => {
-    setTodos(todos.filter((task) => task.id !== id));
+    setTodos(origTodos.filter((task) => task.id !== id));
   };
 
   return (

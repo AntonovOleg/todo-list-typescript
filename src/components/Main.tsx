@@ -9,21 +9,27 @@ export interface ITodo {
   isDone: boolean;
 }
 
+export const enum filters {
+  All,
+  Active,
+  Completed
+}
+
 const Main = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
-  const [filter, setFilter] = useState<string>("All");
+  const [filter, setFilter] = useState<number>(filters.All);
   const activeTodos = todos.filter((task) => !task.isDone);
   const completedTodos = todos.filter((task) => task.isDone);
 
   let renderTodos: ITodo[] = [];
   switch (filter) {
-    case "All":
+    case filters.All:
       renderTodos = todos;
       break;
-    case "Active":
+    case filters.Active:
       renderTodos = activeTodos;
       break;
-    case "Completed":
+    case filters.Completed:
       renderTodos = completedTodos;
       break;
     default:
@@ -34,7 +40,7 @@ const Main = () => {
   return (
     <div>
       <InputField todos={todos} setTodos={setTodos} />
-      <Todos todos={renderTodos} setTodos={setTodos} />
+      <Todos todos={renderTodos} origTodos={todos} setTodos={setTodos} />
       <Filters filter={filter} setFilter={setFilter} />
     </div>
   );
