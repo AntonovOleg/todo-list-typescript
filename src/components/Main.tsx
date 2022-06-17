@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import InputField from "./InputField";
 import Todos from "./Todos";
 import Filters from "./Filters";
+import { Container } from "@mui/system";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 
 export interface ITodo {
   id: number;
@@ -12,10 +14,10 @@ export interface ITodo {
 export const enum filters {
   All,
   Active,
-  Completed
+  Completed,
 }
 
-const Main = () => {
+const Main: FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [filter, setFilter] = useState<number>(filters.All);
   const activeTodos = todos.filter((task) => !task.isDone);
@@ -37,12 +39,59 @@ const Main = () => {
       break;
   }
 
+  const completeAll = (): void => {
+    setTodos(todos.map((task) => {
+      task.isDone = true;
+      return task
+    }))
+  };
+  const deleteAll = (): void => {
+    setTodos([]);
+  };
+
   return (
-    <div>
+    <Container
+      maxWidth="sm"
+      sx={{
+        backgroundColor: "#d9eeff",
+        minHeight: "700px",
+      }}
+    >
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h5">Todo List</Typography>
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              ml: "20px",
+            }}
+            onClick={() => completeAll()}
+          >
+            Complete All
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              ml: "20px",
+            }}
+            onClick={() => deleteAll()}
+          >
+            Delete All
+          </Button>
+        </Toolbar>
+      </AppBar>
       <InputField todos={todos} setTodos={setTodos} />
       <Todos todos={renderTodos} origTodos={todos} setTodos={setTodos} />
-      <Filters filter={filter} setFilter={setFilter} />
-    </div>
+      <Filters
+        filter={filter}
+        setFilter={setFilter}
+        todos={todos}
+        activeTodos={activeTodos}
+        completedTodos={completedTodos}
+      />
+    </Container>
   );
 };
 

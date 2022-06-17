@@ -1,3 +1,5 @@
+import { Box } from "@mui/system";
+import { FC } from "react";
 import { ITodo } from "./Main";
 import Todo from "./Todo";
 
@@ -7,14 +9,21 @@ interface IProps {
   setTodos: (todos: ITodo[]) => void;
 }
 
-const Todos = (props: IProps) => {
-  const { todos, origTodos, setTodos } = props;
-
+const Todos: FC<IProps> = ({ todos, origTodos, setTodos }) => {
   return (
-    <div>
+    <Box
+      sx={{
+        mt: "30px",
+      }}
+    >
       {todos.map((task) => {
         return (
-          <div key={task.id}>
+          <Box
+            key={task.id}
+            sx={{
+              mt: "10px",
+            }}
+          >
             <Todo
               id={task.id}
               todo={task.todo}
@@ -23,10 +32,10 @@ const Todos = (props: IProps) => {
               origTodos={origTodos}
               setTodos={setTodos}
             />
-          </div>
+          </Box>
         );
       })}
-    </div>
+    </Box>
   );
 };
 
