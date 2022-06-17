@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import { FC, useState } from "react";
 import "../styles/InputField.css";
 import { ITodo } from "./Main";
 
@@ -7,11 +9,10 @@ interface IProps {
   setTodos: (todos: ITodo[]) => void;
 }
 
-const InputField = (props: IProps) => {
+const InputField: FC<IProps> = ({ todos, setTodos }) => {
   const [text, setText] = useState<string>("");
-  const { todos, setTodos } = props;
 
-  const create = () => {
+  const create = (): void => {
     if (!text) return;
     setTodos([
       ...todos,
@@ -25,13 +26,24 @@ const InputField = (props: IProps) => {
   };
 
   return (
-    <div className="input-field-wrapper">
-      <input
+    <Box
+      sx={{
+        height: "30px",
+        mt: "10px",
+      }}
+    >
+      <TextField
+        size="small"
+        id="standart-basic"
+        label="Enter task and press Enter"
         onKeyDown={(e) => (e.keyCode === 13 ? create() : null)}
         onChange={(e) => setText(e.target.value)}
         value={text}
+        sx={{
+          mt: "5px",
+        }}
       />
-    </div>
+    </Box>
   );
 };
 

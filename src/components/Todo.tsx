@@ -1,5 +1,9 @@
+import { Button, Checkbox, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import "../styles/Todo.css";
 import { ITodo } from "./Main";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { FC } from "react";
 
 interface IProps {
   id: number;
@@ -10,9 +14,7 @@ interface IProps {
   setTodos: (todos: ITodo[]) => void;
 }
 
-const Todo = (props: IProps) => {
-  const { id, todo, isDone, todos, origTodos, setTodos } = props;
-
+const Todo: FC<IProps> = ({ id, todo, isDone, todos, origTodos, setTodos }) => {
   const modify = (id: number, todo: string, isDone: boolean) => {
     let tmpTodos: ITodo[] = [...origTodos];
     tmpTodos.map((task) => {
@@ -25,22 +27,30 @@ const Todo = (props: IProps) => {
     setTodos(tmpTodos);
   };
 
-  const deleteItem = (id: number) => {
+  const deleteItem = (id: number): void => {
     setTodos(origTodos.filter((task) => task.id !== id));
   };
 
   return (
-    <div className={isDone?"todo-wrapper strike":"todo-wrapper"}>
-      <input
-        type="checkbox"
-        checked={isDone}
-        onChange={() => modify(id, todo, !isDone)}
-      />
-      {todo}
-      <div className="btn-del" onClick={() => deleteItem(id)}>
-        X
-      </div>
-    </div>
+    <Box>
+      <Box
+        className={isDone ? "todo-wrapper strike" : "todo-wrapper"}
+        sx={{
+          backgroundColor: "#d1e5ff",
+        }}
+      >
+        <Checkbox
+          size="medium"
+          color="success"
+          onChange={() => modify(id, todo, !isDone)}
+          checked={isDone}
+        />
+        <Typography variant="h6">{todo}</Typography>
+        <Button onClick={() => deleteItem(id)}>
+          <DeleteIcon />
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
