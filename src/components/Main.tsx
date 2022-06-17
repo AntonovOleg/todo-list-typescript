@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import InputField from "./InputField";
 import Todos from "./Todos";
 import Filters from "./Filters";
+import Options from './Options';
 import { Container } from "@mui/system";
 import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
 
@@ -22,6 +23,7 @@ const Main: FC = () => {
   const [filter, setFilter] = useState<number>(filters.All);
   const activeTodos = todos.filter((task) => !task.isDone);
   const completedTodos = todos.filter((task) => task.isDone);
+  const [optionsVisible, setOptionsVisible] = useState<boolean>(false);
 
   let renderTodos: ITodo[] = [];
   switch (filter) {
@@ -60,26 +62,18 @@ const Main: FC = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h5">Todo List</Typography>
+          
           <Button
             variant="outlined"
             color="inherit"
             sx={{
               ml: "20px",
             }}
-            onClick={() => completeAll()}
+            onClick={() => setOptionsVisible(true)}
           >
-            Complete All
+            Options
           </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            sx={{
-              ml: "20px",
-            }}
-            onClick={() => deleteAll()}
-          >
-            Delete All
-          </Button>
+
         </Toolbar>
       </AppBar>
       <InputField todos={todos} setTodos={setTodos} />
@@ -91,7 +85,9 @@ const Main: FC = () => {
         activeTodos={activeTodos}
         completedTodos={completedTodos}
       />
+      <Options optionsVisible={optionsVisible} setOptionsVisible={setOptionsVisible} completeAll={completeAll} deleteAll={deleteAll} />
     </Container>
+    
   );
 };
 
